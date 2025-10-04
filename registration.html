@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Register - ReUseIt</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: url('images/plain.jpg') no-repeat center center fixed;
+      background-size: cover;
+      min-height: 100vh;
+    }
+    .register-container {
+      max-width: 600px;
+      width: 100%;
+      padding: 50px;
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 15px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+      margin: 80px auto;
+    }
+    .form-control:focus {
+      border-color: #004d40;
+      box-shadow: 0 0 0 0.2rem rgba(0, 77, 64, 0.25);
+    }
+    .btn-custom {
+      background-color: #004d40;
+      color: white;
+    }
+    .btn-custom:hover {
+      background-color: #00695c;
+    }
+    .valid-feedback {
+      display: none;
+      color: green;
+      font-size: 0.9em;
+    }
+    .invalid-feedback {
+      display: none;
+      color: red;
+      font-size: 0.9em;
+    }
+    input.is-valid ~ .valid-feedback {
+      display: block;
+    }
+    input.is-invalid ~ .invalid-feedback {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Navbar copied from index.html -->
+<nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top">
+  <div class="container">
+    <a class="navbar-brand" href="index.html">
+      <i class="fas fa-recycle me-2"></i>ReUseIt
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navMenu">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="browse.html">Browse Items</a></li>
+        <li class="nav-item"><a class="nav-link" href="post item.html">Post an Item</a></li>
+        <li class="nav-item"><a class="nav-link" href="Swap.html">Swap Zone</a></li>
+        <li class="nav-item" id="userNav">
+          <a class="nav-link" href="login.html" id="loginLink">Login</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Registration Form -->
+<div class="register-container">
+  <h2 class="text-center mb-4">Create Your Account</h2>
+  <form id="registerForm" novalidate>
+    <div class="mb-3">
+      <label for="name" class="form-label">Full Name</label>
+      <input type="text" class="form-control" name="name" placeholder="John Doe" required>
+      <div class="valid-feedback">Looks good!</div>
+      <div class="invalid-feedback">Name cannot be blank.</div>
+    </div>
+    <div class="mb-3">
+      <label for="email" class="form-label">Student Email</label>
+      <input type="email" class="form-control" name="email" placeholder="you@college.edu" required>
+      <div class="valid-feedback">Valid email address!</div>
+      <div class="invalid-feedback">Please enter a valid email (must contain @ and .com).</div>
+    </div>
+    <div class="mb-3">
+      <label for="mobile" class="form-label">Mobile Number</label>
+      <input type="tel" class="form-control" name="mobile" placeholder="9876543210" required>
+      <div class="valid-feedback">Valid mobile number!</div>
+      <div class="invalid-feedback">Must be exactly 10 digits (0-9).</div>
+    </div>
+    <div class="mb-3">
+      <label for="password" class="form-label">Create Password</label>
+      <input type="password" class="form-control" name="password" placeholder="Minimum 8 characters" required>
+      <div class="valid-feedback">Strong password!</div>
+      <div class="invalid-feedback">
+        Must be at least 8 characters, include 1 uppercase, 1 number, and 1 special character.
+      </div>
+    </div>
+    <div class="d-grid">
+      <button type="submit" class="btn btn-custom">Register</button>
+    </div>
+  </form>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+// Validation + registration logic (unchanged from your version)
+const form = document.getElementById("registerForm");
+const nameInput = form.name;
+const emailInput = form.email;
+const mobileInput = form.mobile;
+const passwordInput = form.password;
+
+const emailPattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
+const mobilePattern = /^[0-9]{10}$/;
+const passwordPattern = /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*]).{8,}$/;
+
+function validateName() {
+  if (nameInput.value.trim() === "") {
+    setInvalid(nameInput);
+    return false;
+  }
+  setValid(nameInput);
+  return true;
+}
+function validateEmail() {
+  if (emailPattern.test(emailInput.value)) {
+    setValid(emailInput);
+    return true;
+  }
+  setInvalid(emailInput);
+  return false;
+}
+function validateMobile() {
+  if (mobilePattern.test(mobileInput.value)) {
+    setValid(mobileInput);
+    return true;
+  }
+  setInvalid(mobileInput);
+  return false;
+}
+function validatePassword() {
+  if (passwordPattern.test(passwordInput.value)) {
+    setValid(passwordInput);
+    return true;
+  }
+  setInvalid(passwordInput);
+  return false;
+}
+function setValid(input) {
+  input.classList.add("is-valid");
+  input.classList.remove("is-invalid");
+}
+function setInvalid(input) {
+  input.classList.add("is-invalid");
+  input.classList.remove("is-valid");
+}
+nameInput.addEventListener("input", validateName);
+emailInput.addEventListener("input", validateEmail);
+mobileInput.addEventListener("input", validateMobile);
+passwordInput.addEventListener("input", validatePassword);
+
+form.addEventListener("submit", async function(e) {
+  e.preventDefault();
+  const isFormValid = validateName() & validateEmail() & validateMobile() & validatePassword();
+  if (!isFormValid) return;
+
+  const data = {
+    name: nameInput.value,
+    email: emailInput.value,
+    mobile: mobileInput.value,
+    password: passwordInput.value
+  };
+
+  try {
+    const res = await fetch("http://127.0.0.1:3000/register", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+      credentials: "include"
+    });
+
+    if (res.ok) {
+      alert("✅ Registration successful!");
+      window.location.href = "login.html";
+    } else {
+      alert("❌ Registration failed!");
+    }
+  } catch (err) {
+    alert("Could not connect to server. Make sure backend is running.");
+    console.error(err);
+  }
+});
+
+// Session check same as index.html
+async function checkSession() {
+  try {
+    const res = await fetch('http://127.0.0.1:3000/session', { credentials: 'include' });
+    const data = await res.json();
+    const userNav = document.getElementById('userNav');
+    if (data.user) {
+      userNav.innerHTML = `
+        <span class="nav-link">${data.user.name}</span>
+        <button class="btn btn-sm btn-outline-danger ms-2" id="logoutBtn">Logout</button>
+      `;
+      document.getElementById('logoutBtn').addEventListener('click', async () => {
+        await fetch('http://127.0.0.1:3000/logout', { credentials: 'include' });
+        window.location.reload();
+      });
+    }
+  } catch (err) {
+    console.error(err);
+  }
+}
+checkSession();
+</script>
+</body>
+</html>

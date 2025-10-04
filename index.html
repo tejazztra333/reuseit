@@ -1,0 +1,873 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>ReUseIt - Students' Market</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+  .nav-link.text-success {
+    color: #198754 !important; /* Bootstrap green */
+  }
+  .nav-link.text-success:hover {
+    color: #157347 !important; /* Darker green on hover */
+  }
+
+  .nav-link.text-danger {
+    color: #dc3545 !important; /* Bootstrap red */
+  }
+  .nav-link.text-danger:hover {
+    color: #bb2d3b !important; /* Darker red on hover */
+  }
+</style>
+
+  <style>
+    :root {
+      --primary: #006A4E;
+      --secondary: #FF6B35;
+      --accent: #00A896;
+      --light: #F8F9FA;
+      --dark: #343A40;
+    }
+    
+    body {
+      font-family: 'Open Sans', sans-serif;
+      background-color: #f8fafb;
+      color: #333;
+    }
+    
+    h1, h2, h3, h4, h5, h6 {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+    }
+    
+    .navbar {
+      box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+      padding: 12px 0;
+    }
+    
+    .navbar-brand {
+      font-weight: 800;
+      color: var(--primary) !important;
+      font-size: 1.8rem;
+    }
+    
+    .nav-link {
+      font-weight: 400;
+      color: var(--dark) !important;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+    
+    .nav-link:hover {
+      color: var(--secondary) !important;
+    }
+    
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      bottom: 0;
+      left: 0;
+      background-color: var(--secondary);
+      transition: width 0.3s ease;
+    }
+    
+    .nav-link:hover::after {
+      width: 100%;
+    }
+    
+    .hero {
+      background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.6)), url('images/plain.jpg') center/cover no-repeat;
+      height: 90vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .hero-content {
+      text-align: center;
+      max-width: 800px;
+      z-index: 2;
+      animation: fadeIn 1.5s ease;
+    }
+    
+    .hero h1 {
+      font-size: 3.5rem;
+      font-weight: 800;
+      margin-bottom: 1.5rem;
+      text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+    }
+    
+    .hero p {
+      font-size: 1.4rem;
+      margin-bottom: 2rem;
+    }
+    
+    .btn-primary {
+      background-color: var(--secondary);
+      border-color: var(--secondary);
+      padding: 12px 30px;
+      font-weight: 600;
+      border-radius: 50px;
+      transition: all 0.3s ease;
+    }
+    
+    .btn-primary:hover {
+      background-color: #e85a20;
+      border-color: #e85a20;
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    }
+    
+    .section-title {
+      position: relative;
+      margin-bottom: 3rem;
+      text-align: center;
+    }
+    
+    .section-title::after {
+      content: '';
+      display: block;
+      width: 80px;
+      height: 4px;
+      background: var(--secondary);
+      margin: 15px auto;
+      border-radius: 2px;
+    }
+    
+    .about-section {
+      padding: 100px 0;
+      background: linear-gradient(135deg, #f8fafb 0%, #e6f0f2 100%);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .about-section::before {
+      content: '';
+      position: absolute;
+      width: 300px;
+      height: 300px;
+      border-radius: 50%;
+      background: rgba(0, 168, 150, 0.1);
+      top: -150px;
+      right: -150px;
+    }
+    
+    .about-section::after {
+      content: '';
+      position: absolute;
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      background: rgba(255, 107, 53, 0.1);
+      bottom: -100px;
+      left: -100px;
+    }
+    
+    .category-card, .feature-card {
+      transition: all 0.4s ease;
+      border: none;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      height: 100%;
+    }
+    
+    .category-card:hover, .feature-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+    }
+    
+    .category-card img,
+    .feature-card img {
+      height: 220px;
+      object-fit: cover;
+      width: 100%;
+      transition: transform 0.5s ease;
+    }
+    
+    .category-card:hover img,
+    .feature-card:hover img {
+      transform: scale(1.05);
+    }
+    
+    .category-card .card-body {
+      padding: 25px;
+      text-align: center;
+    }
+    
+    .category-card .card-title {
+      color: var(--primary);
+      font-weight: 700;
+    }
+    
+    .steps-section {
+      padding: 100px 0;
+      background-color: white;
+      position: relative;
+    }
+    
+    .step-card {
+      text-align: center;
+      padding: 30px 20px;
+      border-radius: 15px;
+      transition: all 0.3s ease;
+      height: 100%;
+    }
+    
+    .step-card:hover {
+      background-color: #f8fafb;
+      transform: translateY(-5px);
+    }
+    
+    .step-icon {
+      font-size: 3rem;
+      margin-bottom: 20px;
+      color: var(--secondary);
+      display: inline-block;
+      width: 80px;
+      height: 80px;
+      line-height: 80px;
+      background: rgba(255, 107, 53, 0.1);
+      border-radius: 50%;
+      text-align: center;
+    }
+    
+    .step-card h5 {
+      color: var(--primary);
+      margin-bottom: 15px;
+    }
+    
+    .featured-section {
+      padding: 100px 0;
+      background: linear-gradient(135deg, #f8fafb 0%, #e6f0f2 100%);
+    }
+    
+    .feature-card {
+      position: relative;
+    }
+    
+    .feature-card .price-tag {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background: var(--secondary);
+      color: white;
+      padding: 5px 15px;
+      border-radius: 50px;
+      font-weight: 600;
+    }
+    
+    .feature-card .card-body {
+      padding: 20px;
+    }
+    
+    .cta-section {
+      padding: 100px 0;
+      background: linear-gradient(rgba(0, 106, 78, 0.9), rgba(0, 106, 78, 0.9)), url('https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=1500&q=80') center/cover no-repeat;
+      color: white;
+      text-align: center;
+    }
+    
+    .cta-section h2 {
+      margin-bottom: 30px;
+    }
+    
+    .cta-section .btn-light {
+      background-color: white;
+      color: var(--primary);
+      border: none;
+      padding: 12px 35px;
+      font-weight: 600;
+      border-radius: 50px;
+      transition: all 0.3s ease;
+    }
+    
+    .cta-section .btn-light:hover {
+      background-color: var(--secondary);
+      color: white;
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    }
+    
+    .contact-section {
+      padding: 100px 0;
+    }
+    
+    .social-links {
+      margin-top: 20px;
+    }
+    
+    .social-links a {
+      display: inline-block;
+      width: 45px;
+      height: 45px;
+      line-height: 45px;
+      text-align: center;
+      background: var(--primary);
+      color: white;
+      border-radius: 50%;
+      margin-right: 10px;
+      transition: all 0.3s ease;
+    }
+    
+    .social-links a:hover {
+      background: var(--secondary);
+      transform: translateY(-5px);
+    }
+    
+    footer {
+      background-color: var(--primary);
+      color: white;
+      padding: 40px 0 20px;
+    }
+    
+    footer p {
+      margin: 0;
+    }
+    
+    .back-to-top {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      width: 50px;
+      height: 50px;
+      line-height: 50px;
+      text-align: center;
+      background: var(--secondary);
+      color: white;
+      border-radius: 50%;
+      font-size: 20px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+      z-index: 999;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+    }
+    
+    .back-to-top.active {
+      opacity: 1;
+      visibility: visible;
+    }
+    
+    .back-to-top:hover {
+      background: #e85a20;
+      transform: translateY(-5px);
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 2.5rem;
+      }
+      
+      .hero p {
+        font-size: 1.1rem;
+      }
+      
+      .section-title {
+        font-size: 2rem;
+      }
+    }
+  </style>
+
+<style>
+  :root {
+    --primary: #006A4E;
+    --secondary: #FF6B35;
+    --accent: #00A896;
+    --light: #F8F9FA;
+    --dark: #343A40;
+  }
+
+  /* General Body & Fonts */
+  body {
+    font-family: 'Open Sans', sans-serif;
+    background-color: #f8fafb;
+    color: #333;
+    font-size: 1rem; /* Base font size for body text */
+    line-height: 1.6;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    margin-bottom: 1rem;
+  }
+
+  h1 { font-size: 3.5rem; }
+  h2 { font-size: 2.5rem; }
+  h3 { font-size: 2rem; }
+  h4 { font-size: 1.75rem; }
+  h5 { font-size: 1.5rem; }
+  h6 { font-size: 1.25rem; }
+
+  p, .card-text, .price {
+    font-size: 1rem;
+  }
+
+  /* Navbar */
+  .navbar {
+    box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+    padding: 12px 0;
+  }
+
+  .navbar-brand {
+    font-weight: 800;
+    color: var(--primary) !important;
+    font-size: 1.8rem;
+  }
+
+  .nav-link {
+    font-weight: 600;
+    color: var(--dark) !important;
+    transition: all 0.3s ease;
+    position: relative;
+    font-size: 1rem;
+  }
+
+  .nav-link:hover { color: var(--secondary) !important; }
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: var(--secondary);
+    transition: width 0.3s ease;
+  }
+  .nav-link:hover::after { width: 100%; }
+
+  .nav-link.text-success { color: #198754 !important; }
+  .nav-link.text-success:hover { color: #157347 !important; }
+  .nav-link.text-danger { color: #dc3545 !important; }
+  .nav-link.text-danger:hover { color: #bb2d3b !important; }
+
+  /* Hero Section */
+  .hero {
+    background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.6)), url('images/plain.jpg') center/cover no-repeat;
+    height: 90vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+  }
+
+  .hero h1 {
+    font-size: 3.5rem;
+    font-weight: 800;
+    margin-bottom: 1.5rem;
+    text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
+  }
+
+  .hero p {
+    font-size: 1.4rem;
+    margin-bottom: 2rem;
+  }
+
+  .btn-primary {
+    background-color: var(--secondary);
+    border-color: var(--secondary);
+    padding: 12px 30px;
+    font-weight: 600;
+    border-radius: 50px;
+    transition: all 0.3s ease;
+  }
+
+  .btn-primary:hover {
+    background-color: #e85a20;
+    border-color: #e85a20;
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+  }
+
+  /* Cards */
+  .card {
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    transition: all 0.3s ease;
+    height: 100%;
+  }
+
+  .card:hover { transform: translateY(-5px); box-shadow: 0 15px 35px rgba(0,0,0,0.15); }
+
+  .card-img-top {
+    height: 220px;
+    object-fit: cover;
+    width: 100%;
+    transition: transform 0.5s ease;
+  }
+
+  .card:hover .card-img-top { transform: scale(1.05); }
+
+  .card-body {
+    padding: 20px;
+    text-align: center;
+  }
+
+  .card-title { font-weight: 700; font-size: 1rem; min-height: 2.5rem; }
+
+  .price {
+    font-weight: bold;
+    color: #28a745;
+    margin-bottom: 0;
+    font-size: 1rem;
+  }
+
+  /* Steps Section */
+  .step-card {
+    text-align: center;
+    padding: 30px 20px;
+    border-radius: 15px;
+    transition: all 0.3s ease;
+    height: 100%;
+  }
+
+  .step-card:hover { background-color: #f8fafb; transform: translateY(-5px); }
+
+  .step-icon {
+    font-size: 3rem;
+    margin-bottom: 20px;
+    color: var(--secondary);
+    display: inline-block;
+    width: 80px;
+    height: 80px;
+    line-height: 80px;
+    background: rgba(255,107,53,0.1);
+    border-radius: 50%;
+    text-align: center;
+  }
+
+  .step-card h5 { color: var(--primary); margin-bottom: 15px; }
+
+  /* Section Titles */
+  .section-title {
+    position: relative;
+    margin-bottom: 3rem;
+    text-align: center;
+    font-size: 2rem;
+  }
+
+  .section-title::after {
+    content: '';
+    display: block;
+    width: 80px;
+    height: 4px;
+    background: var(--secondary);
+    margin: 15px auto;
+    border-radius: 2px;
+  }
+
+  /* Responsive Adjustments */
+  @media (max-width: 768px) {
+    h1 { font-size: 2.5rem; }
+    h2 { font-size: 2rem; }
+    h3, .section-title { font-size: 1.75rem; }
+    .hero p { font-size: 1.1rem; }
+    .nav-link { font-size: 0.95rem; }
+  }
+</style>
+
+
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top">
+  <div class="container">
+    <a class="navbar-brand" href="#">
+      <i class="fas fa-recycle me-2"></i>ReUseIt
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navMenu">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item"><a class="nav-link active" href="#">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="browse.html">Browse Items</a></li>
+        <li class="nav-item"><a class="nav-link" href="post item.html">Post an Item</a></li>
+        <li class="nav-item"><a class="nav-link" href="Swap.html">Swap Zone</a></li>
+        <li class="nav-item" id="userNav">
+          <a class="nav-link" href="login.html" id="loginLink">Login</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Hero Section -->
+<section class="hero">
+  <div class="hero-content">
+    <h1>ReUseIt – Student Marketplace</h1>
+    <p class="lead">Buy, Sell & Exchange second-hand items affordably on campus!</p>
+    <a href="browse.html" class="btn btn-primary btn-lg">
+      <i class="fas fa-search me-2"></i>Explore Now
+    </a>
+  </div>
+</section>
+
+<!-- About Section -->
+<section class="about-section">
+  <div class="container">
+    <h2 class="section-title">Why Choose ReUseIt?</h2>
+    <div class="row">
+      <div class="col-lg-8 mx-auto text-center">
+        <p class="fs-5">ReUseIt is your one-stop second-hand marketplace built exclusively for students. From textbooks to electronics to furniture — save money, reduce waste, and build a sustainable community right here in Dombivli.</p>
+        <div class="row mt-5">
+          <div class="col-md-4 mb-4">
+            <div class="step-card">
+              <div class="step-icon">
+                <i class="fas fa-rupee-sign"></i>
+              </div>
+              <h5>Save Money</h5>
+              <p>Get what you need at student-friendly prices</p>
+            </div>
+          </div>
+          <div class="col-md-4 mb-4">
+            <div class="step-card">
+              <div class="step-icon">
+                <i class="fas fa-globe-asia"></i>
+              </div>
+              <h5>Eco-Friendly</h5>
+              <p>Reduce waste by giving items a second life</p>
+            </div>
+          </div>
+          <div class="col-md-4 mb-4">
+            <div class="step-card">
+              <div class="step-icon">
+                <i class="fas fa-users"></i>
+              </div>
+              <h5>Build Community</h5>
+              <p>Connect with fellow students on campus</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Categories Section -->
+<section class="py-5">
+  <div class="container">
+    <h2 class="section-title">Popular Categories</h2>
+    <div class="row g-4">
+      <div class="col-md-4">
+        <div class="card category-card h-100">
+          <img src="https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?auto=format&fit=crop&w=800&q=80" class="card-img-top" alt="Books">
+          <div class="card-body text-center">
+            <h5 class="card-title">Books & Notes</h5>
+            <p class="card-text">Textbooks, guides, and notes available at low prices.</p>
+            <a href="#" class="btn btn-outline-primary mt-3">Browse Books</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card category-card h-100">
+          <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=800&q=80" class="card-img-top" alt="Electronics">
+          <div class="card-body text-center">
+            <h5 class="card-title">Electronics</h5>
+            <p class="card-text">Second-hand laptops, headphones, calculators & more.</p>
+            <a href="#" class="btn btn-outline-primary mt-3">Browse Electronics</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card category-card h-100">
+          <img src="https://images.unsplash.com/photo-1524758631624-e2822e304c36?auto=format&fit=crop&w=800&q=80" class="card-img-top" alt="Furniture">
+          <div class="card-body text-center">
+            <h5 class="card-title">Furniture</h5>
+            <p class="card-text">Study tables, chairs, dorm items for affordable rates.</p>
+            <a href="#" class="btn btn-outline-primary mt-3">Browse Furniture</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- How It Works Section -->
+<section class="steps-section">
+  <div class="container">
+    <h2 class="section-title">How It Works</h2>
+    <div class="row text-center">
+      <div class="col-md-4 mb-4">
+        <div class="step-card">
+          <div class="step-icon">
+            <i class="fas fa-camera"></i>
+          </div>
+          <h5>Post Your Item</h5>
+          <p>Upload item details, photos, and price in just a few clicks.</p>
+        </div>
+      </div>
+      <div class="col-md-4 mb-4">
+        <div class="step-card">
+          <div class="step-icon">
+            <i class="fas fa-comments"></i>
+          </div>
+          <h5>Chat & Connect</h5>
+          <p>Connect with interested buyers or sellers through messages or WhatsApp.</p>
+        </div>
+      </div>
+      <div class="col-md-4 mb-4">
+        <div class="step-card">
+          <div class="step-icon">
+            <i class="fas fa-handshake"></i>
+          </div>
+          <h5>Buy, Sell or Swap</h5>
+          <p>Close the deal, exchange items, and save money — all locally.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Featured Items -->
+<section class="featured-section">
+  <div class="container">
+    <h2 class="section-title">Featured Listings</h2>
+    <div class="row g-4">
+      <div class="col-md-3">
+        <div class="card feature-card h-100">
+          <img src="https://images.unsplash.com/photo-1544947950-fa07a98d237f?auto=format&fit=crop&w=800&q=80" class="card-img-top" alt="Java Book">
+          <div class="price-tag">₹120</div>
+          <div class="card-body">
+            <h6 class="card-title">Java Programming Book</h6>
+            <p class="text-muted">Like new condition with minimal highlights</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="card feature-card h-100">
+          <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=800&q=80" class="card-img-top" alt="Headphones">
+          <div class="price-tag">₹700</div>
+          <div class="card-body">
+            <h6 class="card-title">Sony Headphones</h6>
+            <p class="text-muted">Excellent sound quality, 6 months old</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="card feature-card h-100">
+          <img src="https://images.unsplash.com/photo-1485965120184-e220f721d03e?auto=format&fit=crop&w=800&q=80" class="card-img-top" alt="Bicycle">
+          <div class="price-tag">₹2500</div>
+          <div class="card-body">
+            <h6 class="card-title">Mountain Bicycle</h6>
+            <p class="text-muted">Good condition, recently serviced</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="card feature-card h-100">
+          <img src="https://images.unsplash.com/photo-1587145820266-a5951ee6f620?auto=format&fit=crop&w=800&q=80" class="card-img-top" alt="Calculator">
+          <div class="price-tag">₹300</div>
+          <div class="card-body">
+            <h6 class="card-title">Casio Calculator FX-991</h6>
+            <p class="text-muted">Scientific calculator, perfect for engineering</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="text-center mt-5">
+      <a href="browse.html" class="btn btn-primary">View All Listings</a>
+    </div>
+  </div>
+</section>
+
+<!-- CTA Section -->
+<section class="cta-section">
+  <div class="container">
+    <h2>Start Selling or Buying Today!</h2>
+    <p class="mb-4">ReUseIt makes it simple, local, and student-friendly. Create your free account and get started now.</p>
+    <a href="registration.html" class="btn btn-light btn-lg">
+      <i class="fas fa-user-plus me-2"></i>Join ReUseIt
+    </a>
+  </div>
+</section>
+
+<!-- Contact Section -->
+<section class="contact-section">
+  <div class="container">
+    <h2 class="section-title">Get In Touch</h2>
+    <p class="text-center mb-4">Have a question or suggestion? Reach out to us via email or social media.</p>
+    <div class="text-center">
+      <p><i class="fas fa-envelope me-2"></i>Email: <a href="mailto:reuseit.help@gmail.com">reuseit.help@gmail.com</a></p>
+      <p><i class="fas fa-phone me-2"></i>Phone: +91 98765 43210</p>
+      <div class="social-links">
+        <a href="#"><i class="fab fa-instagram"></i></a>
+        <a href="#"><i class="fab fa-facebook-f"></i></a>
+        <a href="#"><i class="fab fa-twitter"></i></a>
+        <a href="#"><i class="fab fa-whatsapp"></i></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="container">
+    <p>&copy; 2025 ReUseIt | Built for students, by students</p>
+  </div>
+</footer>
+
+<!-- Back to Top Button -->
+<a href="#" class="back-to-top"><i class="fas fa-arrow-up"></i></a>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+async function checkSession() {
+  try {
+    const res = await fetch('http://127.0.0.1:3000/session', { credentials: 'include' });
+    const data = await res.json();
+    const userNav = document.getElementById('userNav');
+
+    if (data.user) {
+      userNav.innerHTML = `
+        <div class="d-flex align-items-center">
+          <span class="nav-link fw-bold text-success me-2">
+            <i class="fas fa-user-circle me-1"></i>${data.user.name}
+          </span>
+          <a href="#" class="nav-link text-danger fw-semibold" id="logoutBtn">
+            <i class="fas fa-sign-out-alt me-1"></i>Logout
+          </a>
+        </div>
+      `;
+
+      document.getElementById('logoutBtn').addEventListener('click', async (e) => {
+        e.preventDefault();
+        await fetch('http://127.0.0.1:3000/logout', { credentials: 'include' });
+        window.location.href = "index.html";
+      });
+    }
+  } catch (err) {
+    console.error("Session check failed:", err);
+  }
+}
+
+document.addEventListener("DOMContentLoaded", checkSession);
+</script>
+
+</body>
+</html>
